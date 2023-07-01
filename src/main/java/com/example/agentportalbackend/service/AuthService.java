@@ -8,6 +8,7 @@ import com.example.agentportalbackend.repository.AgentRepository;
 import com.example.agentportalbackend.repository.DatabaseManagerRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
@@ -36,4 +37,11 @@ public class AuthService {
                 }
             return token;
     }
+
+    public Agent register(Agent agent) {
+        log.info("Register:::");
+        Agent savedUser = agentRepository.save(agent);
+        return savedUser;
+    }
+
 }

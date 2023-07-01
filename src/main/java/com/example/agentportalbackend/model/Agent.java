@@ -1,7 +1,6 @@
 package com.example.agentportalbackend.model;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 
 @Entity
 @Table(name = "agent")
@@ -29,7 +28,7 @@ public class Agent {
     private String gender;
 
     @Column(nullable = false)
-    private LocalDate dateOfBirth;
+    private String dateOfBirth;
 
     @Column(nullable = false, unique = true)
     private String ssn;
@@ -92,11 +91,11 @@ public class Agent {
         this.gender = gender;
     }
 
-    public LocalDate getDateOfBirth() {
+    public String getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(LocalDate dateOfBirth) {
+    public void setDateOfBirth(String dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 
