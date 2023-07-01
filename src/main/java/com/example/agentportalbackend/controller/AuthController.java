@@ -3,6 +3,7 @@ import com.example.agentportalbackend.dto.Token;
 import com.example.agentportalbackend.dto.User;
 import com.example.agentportalbackend.model.Agent;
 import com.example.agentportalbackend.service.AuthService;
+import com.example.agentportalbackend.service.TokenService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,25 +18,36 @@ import org.springframework.web.bind.annotation.RestController;
 public class AuthController {
 
     private final AuthService authService;
+    private final TokenService tokenService;
 
 
-    public AuthController(AuthService authService) {
+    public AuthController(AuthService authService, TokenService tokenService) {
         this.authService = authService;
+        this.tokenService = tokenService;
     }
 
     @PostMapping
     @RequestMapping("/login")
-    public ResponseEntity<Token> loginUser(@RequestBody User user) {
+    public ResponseEntity<?> loginUser(@RequestBody User user) {
         log.info("Login Request received");
-        Token token =  authService.login(user);
-        return new ResponseEntity<>(token, HttpStatus.OK);
+        try {
+            Token token =  authService.login(user);
+            token.setToken(tokenService.generateToken(token));
+            return new ResponseEntity<>(token, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.CONFLICT);
+        }
     }
 
     @PostMapping
     @RequestMapping("/register")
-    public ResponseEntity<Agent> registerUser(@RequestBody Agent agent) {
+    public ResponseEntity<?> registerUser(@RequestBody Agent agent) {
         log.info("Registration Request received");
-        Agent savedAgent =  authService.register(agent);
-        return new ResponseEntity<>(savedAgent,HttpStatus.OK);
+        try{
+            Agent savedAgent =  authService.register(agent);
+            return new ResponseEntity<>(savedAgent,HttpStatus.OK);
+        } catch (Exception e){
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.CONFLICT);
+        }
     }
 }
