@@ -21,7 +21,7 @@ public class ApplicationService {
 
     public Application validate(Application app) throws Exception {
         PersonalInfo personalInfo = personalInfoRepository.getAllByFirstnameAndLastname(app.getPersonalInfo().getFirstname(),app.getPersonalInfo().getLastname());
-        if(personalInfo == null){
+        if(personalInfo != null){
             throw  new Exception("Application already exists");
         }
         return app;
