@@ -46,11 +46,10 @@ public class JwtTokenInterceptor extends HandlerInterceptorAdapter {
         try {
             // Parse and validate the token
             Claims claims = Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(token).getBody();
-
             // Perform additional validation if needed
 
             return true;
-        } catch (UnsupportedJwtException | MalformedJwtException | IllegalArgumentException e) {
+        } catch (Exception e) {
             // Token is invalid or malformed
             log.info("error {}",e.getMessage());
             return false;
