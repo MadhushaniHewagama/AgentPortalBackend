@@ -18,7 +18,14 @@ public class Agent {
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     @JoinColumn(name = "registration_id")
-    private Application application_id;
+    private Application application;
+
+    public Agent(String username, String password, Application application) {
+        this.username=username;
+        this.password=password;
+        this.application=application;
+    }
+
 
     public Long getId() {
         return id;
@@ -44,11 +51,11 @@ public class Agent {
         this.password = password;
     }
 
-    public Application getApplication_id() {
-        return application_id;
+    public Application getApplication() {
+        return application;
     }
 
-    public void setApplication_id(Application application_id) {
-        this.application_id = application_id;
+    public void setApplication(Application application) {
+        this.application = application;
     }
 }

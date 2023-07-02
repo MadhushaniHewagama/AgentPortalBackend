@@ -17,9 +17,6 @@ public class Application {
     @Column(nullable = false)
     private ApplicationStatus Status;
 
-    @Column(nullable = true)
-    private String password;
-
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     @JoinColumn(name = "personalInfo_id")
     private PersonalInfo personalInfo;
@@ -62,14 +59,6 @@ public class Application {
 
     public void setStatus(ApplicationStatus status) {
         Status = status;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public PersonalInfo getPersonalInfo() {

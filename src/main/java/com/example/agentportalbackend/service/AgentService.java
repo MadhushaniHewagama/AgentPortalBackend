@@ -1,20 +1,16 @@
 package com.example.agentportalbackend.service;
 
-import com.example.agentportalbackend.dto.ErrorDTO;
 import com.example.agentportalbackend.dto.PasswordDTO;
 import com.example.agentportalbackend.dto.SuccessDTO;
-import com.example.agentportalbackend.dto.TokenDTO;
-import com.example.agentportalbackend.enums.ApplicationStatus;
 import com.example.agentportalbackend.model.Agent;
+import com.example.agentportalbackend.model.Application;
 import com.example.agentportalbackend.repository.AgentRepository;
 import com.example.agentportalbackend.repository.ApplicationRepository;
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jwts;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 @Slf4j
@@ -41,11 +37,13 @@ public class AgentService {
 //    }
 
     public SuccessDTO updatePassword(PasswordDTO pwd) throws Exception {
-        int res = applicationRepository.updatePasswordByIdAndStatus(pwd.getPassword(),pwd.getApp_id(), ApplicationStatus.Approved);
-        if(res != 0){
+        Optional<Application> res = applicationRepository.findById(pwd.getApp_id());
+        if(res.get() != null){
+            agentRepository.save(new Agent((res.get().getPersonalInfo().getFirstname()+res.get().getPersonalInfo().getLastname()),pwd.getPassword(),res.get() ));
             return new SuccessDTO("password set successfully");
         }
         throw  new Exception("Application id incorrect or not approved");
+
 
     }
 }
