@@ -15,7 +15,7 @@ public class Application {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private ApplicationStatus Status;
+    private ApplicationStatus status;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     @JoinColumn(name = "personalInfo_id")
@@ -54,11 +54,11 @@ public class Application {
     }
 
     public ApplicationStatus getStatus() {
-        return Status;
+        return status;
     }
 
     public void setStatus(ApplicationStatus status) {
-        Status = status;
+        this.status = status;
     }
 
     public PersonalInfo getPersonalInfo() {

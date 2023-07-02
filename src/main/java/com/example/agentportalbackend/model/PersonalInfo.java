@@ -2,9 +2,11 @@ package com.example.agentportalbackend.model;
 
 import com.example.agentportalbackend.enums.ApplicationStatus;
 import com.example.agentportalbackend.enums.Gender;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 
+@JsonIgnoreProperties({"hibernateLazyInitializer"})
 @Entity
 @Table(name = "personal_info")
 public class PersonalInfo {

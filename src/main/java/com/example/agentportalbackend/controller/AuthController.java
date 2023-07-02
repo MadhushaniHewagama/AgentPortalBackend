@@ -31,7 +31,6 @@ public class AuthController {
     @RequestMapping("/agent/login")
     public ResponseEntity<?> loginUser(@RequestBody User user) {
         log.info("Agent Login Request received");
-//        emailService.sendSimpleMessage("ishankaudishan2@gmail.com","test","test");
         try {
             TokenDTO tokenDTO =  authService.login(user);
             tokenDTO.setToken(tokenService.generateToken(tokenDTO));
@@ -54,16 +53,5 @@ public class AuthController {
             return new ResponseEntity<>(new ErrorDTO(e.getMessage(),e.getStackTrace().toString()), HttpStatus.CONFLICT);
         }
     }
-//
-//    @PostMapping
-//    @RequestMapping("/register")
-//    public ResponseEntity<?> registerUser(@RequestBody Agent agent) {
-//        log.info("Registration Request received");
-//        try{
-//            Agent savedAgent =  authService.register(agent);
-//            return new ResponseEntity<>(savedAgent,HttpStatus.OK);
-//        } catch (Exception e){
-//            return new ResponseEntity<>(new Error(e.getMessage(),e.getStackTrace().toString()), HttpStatus.CONFLICT);
-//        }
-//    }
+
 }

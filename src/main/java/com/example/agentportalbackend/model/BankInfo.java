@@ -1,8 +1,10 @@
 package com.example.agentportalbackend.model;
 
 
-import javax.persistence.*;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import javax.persistence.*;
+@JsonIgnoreProperties({"hibernateLazyInitializer"})
 @Entity
 @Table(name = "bank_info")
 public class BankInfo {

@@ -3,9 +3,10 @@ package com.example.agentportalbackend.model;
 
 
 import com.example.agentportalbackend.enums.AddressType;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
-
+@JsonIgnoreProperties({"hibernateLazyInitializer"})
 @Entity
 @Table(name = "address")
 public class Address {
