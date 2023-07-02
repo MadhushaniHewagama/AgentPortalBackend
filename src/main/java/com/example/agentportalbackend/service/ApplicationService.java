@@ -51,4 +51,8 @@ public class ApplicationService {
         }
 
     }
+
+    public Application getByID(Long id) {
+        return applicationRepository.findById(id).get();
+    }
 }

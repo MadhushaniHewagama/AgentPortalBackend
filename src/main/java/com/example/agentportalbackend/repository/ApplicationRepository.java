@@ -17,8 +17,4 @@ public interface ApplicationRepository extends JpaRepository<Application, Long> 
     List<Application> findByStatusIn(Collection<ApplicationStatus> Statuses);
 
 
-    @Override
-    Optional<Application> findById(Long aLong);
-
-
 }

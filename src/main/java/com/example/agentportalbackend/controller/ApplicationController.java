@@ -48,14 +48,27 @@ public class ApplicationController {
         }
     }
 
+    @RequestMapping("/{id}")
+    @GetMapping
+    @AccessTokenRequired
+    public ResponseEntity<?> getApplicationByID(@RequestHeader(required = true) String token, @PathVariable Long id) {
+        log.info("Application get by id Request");
+        try{
+            Application app =  applicationService.getByID(id);
+            return new ResponseEntity<>(app, HttpStatus.OK);
+        } catch (Exception e){
+            return new ResponseEntity<>(new ErrorDTO(e.getMessage(),e.getStackTrace().toString()), HttpStatus.CONFLICT);
+        }
+    }
+
     @RequestMapping("/all")
     @GetMapping
     @AccessTokenRequired
     public ResponseEntity<?> getAllApplication(@RequestHeader(required = true) String token) {
         log.info("Application get all Request");
         try{
-            List<Application> savedApplication =  applicationService.getAll(token);
-            return new ResponseEntity<>(savedApplication, HttpStatus.OK);
+            List<Application> applications =  applicationService.getAll(token);
+            return new ResponseEntity<>(applications, HttpStatus.OK);
         } catch (Exception e){
             return new ResponseEntity<>(new ErrorDTO(e.getMessage(),e.getStackTrace().toString()), HttpStatus.CONFLICT);
         }
