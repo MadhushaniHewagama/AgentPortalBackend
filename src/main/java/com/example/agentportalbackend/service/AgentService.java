@@ -2,9 +2,7 @@ package com.example.agentportalbackend.service;
 
 import com.example.agentportalbackend.dto.Token;
 import com.example.agentportalbackend.model.Agent;
-import com.example.agentportalbackend.model.DatabaseManager;
 import com.example.agentportalbackend.repository.AgentRepository;
-import com.example.agentportalbackend.repository.DatabaseManagerRepository;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import lombok.extern.slf4j.Slf4j;
@@ -15,7 +13,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @Slf4j
-public class AgenntService {
+public class AgentService {
 
     @Autowired
     private AgentRepository agentRepository;
@@ -35,8 +33,8 @@ public class AgenntService {
         return agent;
     }
 
-    public Agent updateProfile(Agent agent) {
-        agentRepository.updateUsernameAndPasswordAndFirstnameAndMiddlenameAndLastnameAndGenderAndDateOfBirthAndSsnById(agent.getUsername(), agent.getPassword(), agent.getFirstname(),agent.getMiddlename(),agent.getLastname(),agent.getGender(),agent.getDateOfBirth(),agent.getSsn(),agent.getId());
-        return agent;
-    }
+//    public Agent updateProfile(Agent agent) {
+//        agentRepository.updateUsernameAndPasswordAndFirstnameAndMiddlenameAndLastnameAndGenderAndDateOfBirthAndSsnById(agent.getUsername(), agent.getPassword(), agent.getFirstname(),agent.getMiddlename(),agent.getLastname(),agent.getGender(),agent.getDateOfBirth(),agent.getSsn(),agent.getId());
+//        return agent;
+//    }
 }

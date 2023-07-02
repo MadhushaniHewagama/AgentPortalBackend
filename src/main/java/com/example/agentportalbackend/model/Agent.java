@@ -1,5 +1,6 @@
 package com.example.agentportalbackend.model;
 
+
 import javax.persistence.*;
 
 @Entity
@@ -15,25 +16,9 @@ public class Agent {
     @Column(nullable = false)
     private String password;
 
-    @Column(nullable = false)
-    private String firstname;
-
-    @Column
-    private String middlename;
-
-    @Column(nullable = false)
-    private String lastname;
-
-    @Column(nullable = false)
-    private String gender;
-
-    @Column(nullable = false)
-    private String dateOfBirth;
-
-    @Column(nullable = false, unique = true)
-    private String ssn;
-
-    // Constructors, getters, and setters
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    @JoinColumn(name = "registration_id")
+    private Application application_id;
 
     public Long getId() {
         return id;
@@ -59,51 +44,11 @@ public class Agent {
         this.password = password;
     }
 
-    public String getFirstname() {
-        return firstname;
+    public Application getApplication_id() {
+        return application_id;
     }
 
-    public void setFirstname(String firstname) {
-        this.firstname = firstname;
-    }
-
-    public String getMiddlename() {
-        return middlename;
-    }
-
-    public void setMiddlename(String middlename) {
-        this.middlename = middlename;
-    }
-
-    public String getLastname() {
-        return lastname;
-    }
-
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
-    }
-
-    public String getGender() {
-        return gender;
-    }
-
-    public void setGender(String gender) {
-        this.gender = gender;
-    }
-
-    public String getDateOfBirth() {
-        return dateOfBirth;
-    }
-
-    public void setDateOfBirth(String dateOfBirth) {
-        this.dateOfBirth = dateOfBirth;
-    }
-
-    public String getSsn() {
-        return ssn;
-    }
-
-    public void setSsn(String ssn) {
-        this.ssn = ssn;
+    public void setApplication_id(Application application_id) {
+        this.application_id = application_id;
     }
 }

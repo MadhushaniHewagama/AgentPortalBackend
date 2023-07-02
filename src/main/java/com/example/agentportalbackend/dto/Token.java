@@ -1,18 +1,20 @@
 package com.example.agentportalbackend.dto;
 
+import com.example.agentportalbackend.enums.Role;
+
 public class Token {
     String token;
     Long id;
-    String userType;
+    Role role;
 
-    public Token(String token, Long id, String userType) {
+    public Token(String token, Long id, Role role) {
         this.token = token;
         this.id = id;
-        this.userType = userType;
+        this.role = role;
     }
-    public Token( Long id, String userType) {
+    public Token( Long id, Role role) {
         this.id = id;
-        this.userType = userType;
+        this.role = role;
     }
 
     public String getToken() {
@@ -31,11 +33,11 @@ public class Token {
         this.id = id;
     }
 
-    public String getUserType() {
-        return userType;
+    public Role getRole() {
+        return role;
     }
 
-    public void setUserType(String userType) {
-        this.userType = userType;
+    public void setRole(Role role) {
+        this.role = role;
     }
 }

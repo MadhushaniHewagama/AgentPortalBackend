@@ -22,7 +22,7 @@ import java.util.Date;
             String JwtToken = Jwts.builder()
                     .setSubject(token.getId().toString())
                     .claim("id", token.getId().toString())
-                    .claim("userType", token.getUserType())
+                    .claim("role", token.getRole())
                     .setExpiration(expirationDate)
                     .signWith(SignatureAlgorithm.HS256, SECRET_KEY)
                     .compact();

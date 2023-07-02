@@ -1,4 +1,6 @@
 package com.example.agentportalbackend.model;
+import com.example.agentportalbackend.enums.Role;
+
 import javax.persistence.*;
 
 @Entity
@@ -13,6 +15,10 @@ public class DatabaseManager {
 
     @Column(nullable = false)
     private String password;
+
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
     // Getters and setters
 
@@ -38,5 +44,13 @@ public class DatabaseManager {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
     }
 }
