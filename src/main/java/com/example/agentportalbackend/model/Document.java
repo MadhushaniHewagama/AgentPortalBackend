@@ -4,18 +4,19 @@ import com.example.agentportalbackend.enums.DocumnetType;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "educational_info")
+@Table(name = "document")
 public class Document {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = true)
     private DocumnetType docType;
 
     @Lob
-    @Column(nullable = false)
+    @Column(nullable = true)
     private byte[] data;
 
     public Long getId() {

@@ -1,5 +1,6 @@
 package com.example.agentportalbackend.model;
 
+import com.example.agentportalbackend.enums.ApplicationStatus;
 import com.example.agentportalbackend.enums.Gender;
 
 import javax.persistence.*;
@@ -20,8 +21,8 @@ public class PersonalInfo {
     @Column(nullable = false)
     private String lastname;
 
-    @Column(nullable = true)
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private Gender gender;
 
     @Column(nullable = false)

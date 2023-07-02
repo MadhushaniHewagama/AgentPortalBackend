@@ -17,7 +17,7 @@ public class Application {
     @Column(nullable = false)
     private ApplicationStatus Status;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private String password;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)

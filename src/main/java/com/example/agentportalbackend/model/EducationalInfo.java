@@ -11,13 +11,13 @@ public class EducationalInfo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private String highestQualification;
 
     @Column(nullable = true)
     private String university;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private String year;
 
     public Long getId() {
