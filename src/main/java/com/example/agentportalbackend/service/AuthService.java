@@ -26,11 +26,11 @@ public class AuthService {
                 DatabaseManager databaseManager = databaseManagerRepository.findByUsernameAndPassword(user.getUsername(),user.getPassword());
                 Token token;
                 if (databaseManager != null) {
-                    token = new Token("hhhh", databaseManager.getId(),"DBM");
+                    token = new Token(databaseManager.getId(),"DBM");
                 }else{
                     Agent agent = agentRepository.findByUsernameAndPassword(user.getUsername(),user.getPassword());
                     if (agent != null) {
-                        token = new Token("hhhh", agent.getId(),"Agent");
+                        token = new Token( agent.getId(),"Agent");
                     }else{
                         throw new UsernameNotFoundException("User not found with username: " + user.getUsername());
                     }

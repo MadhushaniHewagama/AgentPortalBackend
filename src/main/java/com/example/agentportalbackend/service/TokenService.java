@@ -18,7 +18,6 @@ import java.util.Date;
         public String generateToken(Token token) {
             // Set the expiration time for the token
             Date expirationDate = new Date(System.currentTimeMillis() + 86400000); // 1 day
-
             // Generate the token using the user's ID, username, and expiration date
             String JwtToken = Jwts.builder()
                     .setSubject(token.getId().toString())

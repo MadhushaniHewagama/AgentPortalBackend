@@ -10,6 +10,10 @@ public class Token {
         this.id = id;
         this.userType = userType;
     }
+    public Token( Long id, String userType) {
+        this.id = id;
+        this.userType = userType;
+    }
 
     public String getToken() {
         return token;
