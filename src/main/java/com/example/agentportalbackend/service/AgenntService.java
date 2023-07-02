@@ -16,8 +16,6 @@ import org.springframework.stereotype.Service;
 @Service
 @Slf4j
 public class AgenntService {
-    @Autowired
-    private DatabaseManagerRepository databaseManagerRepository;
 
     @Autowired
     private AgentRepository agentRepository;
@@ -37,5 +35,8 @@ public class AgenntService {
         return agent;
     }
 
-
+    public Agent updateProfile(Agent agent) {
+        agentRepository.updateUsernameAndPasswordAndFirstnameAndMiddlenameAndLastnameAndGenderAndDateOfBirthAndSsnById(agent.getUsername(), agent.getPassword(), agent.getFirstname(),agent.getMiddlename(),agent.getLastname(),agent.getGender(),agent.getDateOfBirth(),agent.getSsn(),agent.getId());
+        return agent;
+    }
 }
