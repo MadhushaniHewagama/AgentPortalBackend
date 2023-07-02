@@ -26,6 +26,7 @@ public class Agent {
         this.application=application;
     }
 
+    public Agent(){}
 
     public Long getId() {
         return id;
