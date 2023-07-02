@@ -1,8 +1,7 @@
 package com.example.agentportalbackend.controller;
-import com.example.agentportalbackend.dto.Error;
-import com.example.agentportalbackend.dto.Token;
+import com.example.agentportalbackend.dto.ErrorDTO;
+import com.example.agentportalbackend.dto.TokenDTO;
 import com.example.agentportalbackend.dto.User;
-import com.example.agentportalbackend.model.Agent;
 import com.example.agentportalbackend.service.AuthService;
 import com.example.agentportalbackend.service.EmailService;
 import com.example.agentportalbackend.service.TokenService;
@@ -34,11 +33,11 @@ public class AuthController {
         log.info("Agent Login Request received");
 //        emailService.sendSimpleMessage("ishankaudishan2@gmail.com","test","test");
         try {
-            Token token =  authService.login(user);
-            token.setToken(tokenService.generateToken(token));
-            return new ResponseEntity<>(token, HttpStatus.OK);
+            TokenDTO tokenDTO =  authService.login(user);
+            tokenDTO.setToken(tokenService.generateToken(tokenDTO));
+            return new ResponseEntity<>(tokenDTO, HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<>(new Error(e.getMessage(),e.getStackTrace().toString()), HttpStatus.CONFLICT);
+            return new ResponseEntity<>(new ErrorDTO(e.getMessage(),e.getStackTrace().toString()), HttpStatus.CONFLICT);
         }
     }
 
@@ -48,11 +47,11 @@ public class AuthController {
         log.info("Other Login Request received");
 //        emailService.sendSimpleMessage("ishankaudishan2@gmail.com","test","test");
         try {
-            Token token =  authService.otherLogin(user);
-            token.setToken(tokenService.generateToken(token));
-            return new ResponseEntity<>(token, HttpStatus.OK);
+            TokenDTO tokenDTO =  authService.otherLogin(user);
+            tokenDTO.setToken(tokenService.generateToken(tokenDTO));
+            return new ResponseEntity<>(tokenDTO, HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<>(new Error(e.getMessage(),e.getStackTrace().toString()), HttpStatus.CONFLICT);
+            return new ResponseEntity<>(new ErrorDTO(e.getMessage(),e.getStackTrace().toString()), HttpStatus.CONFLICT);
         }
     }
 //

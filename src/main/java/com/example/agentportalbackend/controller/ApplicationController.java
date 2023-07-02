@@ -6,7 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import com.example.agentportalbackend.dto.Error;
+import com.example.agentportalbackend.dto.ErrorDTO;
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
@@ -29,7 +29,7 @@ public class ApplicationController {
             Application savedApplication =  applicationService.validate(application);
             return new ResponseEntity<>(savedApplication, HttpStatus.OK);
         } catch (Exception e){
-            return new ResponseEntity<>(new Error(e.getMessage(),e.getStackTrace().toString()), HttpStatus.CONFLICT);
+            return new ResponseEntity<>(new ErrorDTO(e.getMessage(),e.getStackTrace().toString()), HttpStatus.CONFLICT);
         }
     }
 
@@ -41,7 +41,7 @@ public class ApplicationController {
             Application savedApplication =  applicationService.save(application);
             return new ResponseEntity<>(savedApplication, HttpStatus.OK);
         } catch (Exception e){
-            return new ResponseEntity<>(new Error(e.getMessage(),e.getStackTrace().toString()), HttpStatus.CONFLICT);
+            return new ResponseEntity<>(new ErrorDTO(e.getMessage(),e.getStackTrace().toString()), HttpStatus.CONFLICT);
         }
     }
 }

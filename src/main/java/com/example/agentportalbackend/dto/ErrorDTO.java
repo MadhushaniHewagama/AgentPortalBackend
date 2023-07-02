@@ -1,6 +1,6 @@
 package com.example.agentportalbackend.dto;
 
-public class Error {
+public class ErrorDTO {
     String errorMessage;
     String errorDetails;
 
@@ -20,7 +20,7 @@ public class Error {
         this.errorDetails = errorDetails;
     }
 
-    public Error(String errorMessage, String errorDetails) {
+    public ErrorDTO(String errorMessage, String errorDetails) {
         this.errorMessage = errorMessage;
         this.errorDetails = errorDetails;
     }

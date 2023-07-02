@@ -1,6 +1,6 @@
 package com.example.agentportalbackend.service;
 
-import com.example.agentportalbackend.dto.Token;
+import com.example.agentportalbackend.dto.TokenDTO;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.extern.slf4j.Slf4j;
@@ -15,14 +15,14 @@ import java.util.Date;
         @Value("${jwt.secret}")
         private String SECRET_KEY;
 
-        public String generateToken(Token token) {
+        public String generateToken(TokenDTO tokenDTO) {
             // Set the expiration time for the token
             Date expirationDate = new Date(System.currentTimeMillis() + 86400000); // 1 day
             // Generate the token using the user's ID, username, and expiration date
             String JwtToken = Jwts.builder()
-                    .setSubject(token.getId().toString())
-                    .claim("id", token.getId().toString())
-                    .claim("role", token.getRole())
+                    .setSubject(tokenDTO.getId().toString())
+                    .claim("id", tokenDTO.getId().toString())
+                    .claim("role", tokenDTO.getRole())
                     .setExpiration(expirationDate)
                     .signWith(SignatureAlgorithm.HS256, SECRET_KEY)
                     .compact();

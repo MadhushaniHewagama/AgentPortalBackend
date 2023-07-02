@@ -1,6 +1,6 @@
 package com.example.agentportalbackend.service;
 
-import com.example.agentportalbackend.dto.Token;
+import com.example.agentportalbackend.dto.TokenDTO;
 import com.example.agentportalbackend.dto.User;
 import com.example.agentportalbackend.model.Agent;
 import com.example.agentportalbackend.model.DatabaseManager;
@@ -22,31 +22,31 @@ public class AuthService {
         private AgentRepository agentRepository;
 
 
-        public Token login(User user) throws UsernameNotFoundException {
+        public TokenDTO login(User user) throws UsernameNotFoundException {
                 DatabaseManager databaseManager = databaseManagerRepository.findByUsernameAndPassword(user.getUsername(),user.getPassword());
-                Token token;
+                TokenDTO tokenDTO;
                 if (databaseManager != null) {
-                    token = new Token(databaseManager.getId(),databaseManager.getRole());
+                    tokenDTO = new TokenDTO(databaseManager.getId(),databaseManager.getRole());
                 }else{
                     Agent agent = agentRepository.findByUsernameAndPassword(user.getUsername(),user.getPassword());
                     if (agent != null) {
-                        token = new Token( agent.getId(), Role.Agent);
+                        tokenDTO = new TokenDTO( agent.getId(), Role.Agent);
                     }else{
                         throw new UsernameNotFoundException("User not found with username: " + user.getUsername());
                     }
                 }
-            return token;
+            return tokenDTO;
     }
 
 
-    public Token otherLogin(User user) {
+    public TokenDTO otherLogin(User user) {
         DatabaseManager databaseManager = databaseManagerRepository.findByUsernameAndPassword(user.getUsername(),user.getPassword());
-        Token token;
+        TokenDTO tokenDTO;
         if (databaseManager != null) {
-            token = new Token(databaseManager.getId(),databaseManager.getRole());
+            tokenDTO = new TokenDTO(databaseManager.getId(),databaseManager.getRole());
         }else{
                 throw new UsernameNotFoundException("User not found with username: " + user.getUsername());
         }
-        return token;
+        return tokenDTO;
     }
 }

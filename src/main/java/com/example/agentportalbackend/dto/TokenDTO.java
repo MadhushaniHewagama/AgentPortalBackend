@@ -2,17 +2,17 @@ package com.example.agentportalbackend.dto;
 
 import com.example.agentportalbackend.enums.Role;
 
-public class Token {
+public class TokenDTO {
     String token;
     Long id;
     Role role;
 
-    public Token(String token, Long id, Role role) {
+    public TokenDTO(String token, Long id, Role role) {
         this.token = token;
         this.id = id;
         this.role = role;
     }
-    public Token( Long id, Role role) {
+    public TokenDTO(Long id, Role role) {
         this.id = id;
         this.role = role;
     }
