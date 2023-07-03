@@ -37,6 +37,7 @@ public class ApplicationService {
     }
 
     public Application save(Application application) {
+        application.setStatus(ApplicationStatus.Submitted);
         Application savedApp = applicationRepository.save(application);
         return  savedApp;
     }
