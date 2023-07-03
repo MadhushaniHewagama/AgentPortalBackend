@@ -18,13 +18,11 @@ public class AuthController {
 
     private final AuthService authService;
     private final TokenService tokenService;
-//    private final EmailService emailService;
 
 
     public AuthController(AuthService authService, TokenService tokenService, EmailService emailService) {
         this.authService = authService;
         this.tokenService = tokenService;
-//        this.emailService = emailService;
     }
 
     @PostMapping
@@ -44,7 +42,6 @@ public class AuthController {
     @RequestMapping("/other/login")
     public ResponseEntity<?> otherUser(@RequestBody User user) {
         log.info("Other Login Request received");
-//        emailService.sendSimpleMessage("ishankaudishan2@gmail.com","test","test");
         try {
             TokenDTO tokenDTO =  authService.otherLogin(user);
             tokenDTO.setToken(tokenService.generateToken(tokenDTO));
