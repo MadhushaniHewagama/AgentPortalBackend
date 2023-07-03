@@ -6,8 +6,13 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+
 @Repository
 public interface AgentRepository extends JpaRepository<Agent, Long> {
 
     Agent findByUsernameAndPassword(String username, String password);
+
+    @Override
+    Optional<Agent> findById(Long aLong);
 }
