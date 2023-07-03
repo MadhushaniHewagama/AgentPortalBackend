@@ -10,6 +10,7 @@ import java.util.Optional;
 
 @Repository
 public interface AgentRepository extends JpaRepository<Agent, Long> {
+    Agent findByApplication_Id(Long id);
 
     Agent findByUsernameAndPassword(String username, String password);
 

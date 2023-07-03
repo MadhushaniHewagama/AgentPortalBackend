@@ -1,7 +1,7 @@
 package com.example.agentportalbackend.controller;
 import com.example.agentportalbackend.dto.ErrorDTO;
 import com.example.agentportalbackend.dto.TokenDTO;
-import com.example.agentportalbackend.dto.User;
+import com.example.agentportalbackend.dto.UserDTO;
 import com.example.agentportalbackend.service.AuthService;
 import com.example.agentportalbackend.service.EmailService;
 import com.example.agentportalbackend.service.TokenService;
@@ -27,10 +27,10 @@ public class AuthController {
 
     @PostMapping
     @RequestMapping("/agent/login")
-    public ResponseEntity<?> loginUser(@RequestBody User user) {
+    public ResponseEntity<?> loginUser(@RequestBody UserDTO userDTO) {
         log.info("Agent Login Request received");
         try {
-            TokenDTO tokenDTO =  authService.login(user);
+            TokenDTO tokenDTO =  authService.login(userDTO);
             tokenDTO.setToken(tokenService.generateToken(tokenDTO));
             return new ResponseEntity<>(tokenDTO, HttpStatus.OK);
         } catch (Exception e) {
@@ -40,10 +40,10 @@ public class AuthController {
 
     @PostMapping
     @RequestMapping("/other/login")
-    public ResponseEntity<?> otherUser(@RequestBody User user) {
+    public ResponseEntity<?> otherUser(@RequestBody UserDTO userDTO) {
         log.info("Other Login Request received");
         try {
-            TokenDTO tokenDTO =  authService.otherLogin(user);
+            TokenDTO tokenDTO =  authService.otherLogin(userDTO);
             tokenDTO.setToken(tokenService.generateToken(tokenDTO));
             return new ResponseEntity<>(tokenDTO, HttpStatus.OK);
         } catch (Exception e) {

@@ -37,6 +37,9 @@ public class AgentService {
     public SuccessDTO updatePassword(PasswordDTO pwd) throws Exception {
         Optional<Application> res = applicationRepository.findById(pwd.getApp_id());
         if(res.get() != null){
+            if(agentRepository.findByApplication_Id(pwd.getApp_id()) != null){
+                throw  new Exception("Already generated password");
+            }
             agentRepository.save(new Agent((res.get().getPersonalInfo().getFirstname()+res.get().getPersonalInfo().getLastname()),pwd.getPassword(),res.get() ));
             return new SuccessDTO("password set successfully");
         }

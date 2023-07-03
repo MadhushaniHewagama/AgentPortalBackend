@@ -4,11 +4,9 @@ import com.example.agentportalbackend.config.AccessTokenRequired;
 import com.example.agentportalbackend.dto.SuccessDTO;
 import com.example.agentportalbackend.enums.Role;
 import com.example.agentportalbackend.model.Application;
-import com.example.agentportalbackend.model.DatabaseManager;
 import com.example.agentportalbackend.repository.DatabaseManagerRepository;
 import com.example.agentportalbackend.service.ApplicationService;
 import com.example.agentportalbackend.service.EmailService;
-import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -99,7 +97,7 @@ public class ApplicationController {
                         "\n\n Best regards, \n Agency Manager");
 
             }else{
-                emailService.sendSimpleMessage(application.getContactInfo().getEmail(),"Application submission confirmation","Dear Applicant, Your application has been approved. Furthe below this email are the details that have been made following the approval of your application, Please continue finishing your appplication create by creating a new password and user with this link.\n http://localhost:3000?id="+application.getId() +
+                emailService.sendSimpleMessage(application.getContactInfo().getEmail(),"Application submission confirmation","Dear Applicant, Your application has been approved. Furthe below this email are the details that have been made following the approval of your application, Please continue finishing your appplication create by creating a new password and user with this link.\n http://localhost:3000/passwordCreation?id="+application.getId() +
                         "\n\n Best regards, \n Backend Manager");
 
             }
