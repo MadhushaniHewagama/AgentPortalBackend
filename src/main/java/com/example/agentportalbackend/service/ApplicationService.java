@@ -4,6 +4,7 @@ import com.example.agentportalbackend.enums.ApplicationStatus;
 import com.example.agentportalbackend.enums.Role;
 import com.example.agentportalbackend.model.Application;
 import com.example.agentportalbackend.model.PersonalInfo;
+import com.example.agentportalbackend.repository.AgentRepository;
 import com.example.agentportalbackend.repository.ApplicationRepository;
 import com.example.agentportalbackend.repository.PersonalInfoRepository;
 import io.jsonwebtoken.Claims;
@@ -18,14 +19,17 @@ import java.util.List;
 @Service
 @Slf4j
 public class ApplicationService {
+    private final AgentRepository agentRepository;
     private final ApplicationRepository applicationRepository;
     private final PersonalInfoRepository personalInfoRepository;
     private String SECRET_KEY = "dshhsfhshdsdfgasdfasdadasdfagsfbhfgjfhjgdhfsfgbdafaf";
 
 
-    public ApplicationService(ApplicationRepository applicationRepository, PersonalInfoRepository personalInfoRepository) {
+    public ApplicationService(ApplicationRepository applicationRepository, PersonalInfoRepository personalInfoRepository,
+                              AgentRepository agentRepository) {
         this.applicationRepository = applicationRepository;
         this.personalInfoRepository = personalInfoRepository;
+        this.agentRepository = agentRepository;
     }
 
     public Application validate(Application app) throws Exception {
@@ -54,8 +58,16 @@ public class ApplicationService {
 
     }
 
-    public Application getByID(Long id) {
-        return applicationRepository.findById(id).get();
+    public Application getByID(Long id, String token) {
+        Claims claims = Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(token).getBody();
+        Role role = Role.valueOf((String) claims.get("role"));
+        Long agent_id = Long.parseLong((String) claims.get("id"));
+        if(role == Role.Agent){
+            return agentRepository.findById(agent_id).get().getApplication();
+        }else{
+            return applicationRepository.findById(id).get();
+        }
+
     }
 
     public Role approve(String token, Application app) {
