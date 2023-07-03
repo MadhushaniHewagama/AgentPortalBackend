@@ -1,6 +1,8 @@
 package com.example.agentportalbackend.controller;
 
 import com.example.agentportalbackend.config.AccessTokenRequired;
+import com.example.agentportalbackend.dto.SuccessDTO;
+import com.example.agentportalbackend.enums.Role;
 import com.example.agentportalbackend.model.Application;
 import com.example.agentportalbackend.model.DatabaseManager;
 import com.example.agentportalbackend.repository.DatabaseManagerRepository;
@@ -52,6 +54,7 @@ public class ApplicationController {
             Application savedApplication =  applicationService.save(application);
             emailService.sendSimpleMessage("'BackendUser@life.in.com","Newly submitted registration","Hello, a new application registration has been made. please see the details in bellow with attached documents." +
                     "\n\n Application registartionId:"+savedApplication.getId()+"\n\nThis is an auto generated email, please do not reply");
+            emailService.sendSimpleMessage(application.getContactInfo().getEmail(),"Aplication submissing confirmation","Dear Applicant, Thank you for submitting our application. We'all send a confirmation very soon if your application is approved"+"\n\nThis is an auto generated email, please do not reply");
             return new ResponseEntity<>(savedApplication, HttpStatus.OK);
         } catch (Exception e){
             return new ResponseEntity<>(new ErrorDTO(e.getMessage(),e.getStackTrace().toString()), HttpStatus.CONFLICT);
@@ -79,6 +82,49 @@ public class ApplicationController {
         try{
             List<Application> applications =  applicationService.getAll(token);
             return new ResponseEntity<>(applications, HttpStatus.OK);
+        } catch (Exception e){
+            return new ResponseEntity<>(new ErrorDTO(e.getMessage(),e.getStackTrace().toString()), HttpStatus.CONFLICT);
+        }
+    }
+
+    @RequestMapping("/approve")
+    @PutMapping
+    @AccessTokenRequired
+    public ResponseEntity<?> approveApplication(@RequestHeader(required = true) String token,@RequestBody Application application) {
+        log.info("Application Approved");
+        try{
+            Role role =  applicationService.approve(token,application);
+            if(role == Role.BackendUser){
+                emailService.sendSimpleMessage("AgencyManager@life.in.com","Application form with registartion id"+application.getId(),"Hello,Look over the registration id: "+application.getId() +
+                        "\n\n Best regards, \n Agency Manager");
+
+            }else{
+                emailService.sendSimpleMessage(application.getContactInfo().getEmail(),"Application submission confirmation","Dear Applicant, Your application has been approved. Furthe below this email are the details that have been made following the approval of your application, Please continue finishing your appplication create by creating a new password and user with this link.\n http://localhost:3000?id="+application.getId() +
+                        "\n\n Best regards, \n Backend Manager");
+
+            }
+            return new ResponseEntity<>(new SuccessDTO("approved application"), HttpStatus.OK);
+        } catch (Exception e){
+            return new ResponseEntity<>(new ErrorDTO(e.getMessage(),e.getStackTrace().toString()), HttpStatus.CONFLICT);
+        }
+    }
+
+    @RequestMapping("/reject")
+    @PutMapping
+    @AccessTokenRequired
+    public ResponseEntity<?> rejectApplication(@RequestHeader(required = true) String token,@RequestBody Application application) {
+        log.info("Application Approved");
+        try{
+            Role role =  applicationService.reject(token,application);
+            if(role == Role.BackendUser){
+                emailService.sendSimpleMessage(application.getContactInfo().getEmail(),"Application Rejected","Dear Applicant, Your application has been rejected." +
+                        "\n\n Best regards, \n Backend Manager");
+            }else{
+                emailService.sendSimpleMessage(application.getContactInfo().getEmail(),"Application Rejected","Dear Applicant, Your application has been rejected." +
+                        "\n\n Best regards, \n Agency Manager");
+
+            }
+            return new ResponseEntity<>(new SuccessDTO("reject application"), HttpStatus.OK);
         } catch (Exception e){
             return new ResponseEntity<>(new ErrorDTO(e.getMessage(),e.getStackTrace().toString()), HttpStatus.CONFLICT);
         }
