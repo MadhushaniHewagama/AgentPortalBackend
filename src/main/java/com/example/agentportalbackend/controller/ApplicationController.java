@@ -93,12 +93,28 @@ public class ApplicationController {
         try{
             Role role =  applicationService.approve(token,application);
             if(role == Role.BackendUser){
-                emailService.sendSimpleMessage("AgencyManager@life.in.com","Application form with registartion id"+application.getId(),"Hello,Look over the registration id: "+application.getId() +
-                        "\n\n Best regards, \n Agency Manager");
+                emailService.sendSimpleMessage("AgencyManager@life.in.com","Application form with registartion id"+application.getId(),
+                        "<p>\n" +
+                                "    Hello,\n" +
+                                "  </p>\n" +
+                                "  <p>\n" +
+                                "    Hello,Look over the registration id: "+application.getId()+"\n" +
+                                "  </p><br />\n" +
+                                "  <p>Best regards,</p>\n" +
+                                "  <p>Agency Manager</p>");
 
             }else{
-                emailService.sendSimpleMessage(application.getContactInfo().getEmail(),"Application submission confirmation","Dear Applicant, Your application has been approved. Furthe below this email are the details that have been made following the approval of your application, Please continue finishing your appplication create by creating a new password and user with this link.\n http://localhost:3000/passwordCreation?id="+application.getId() +
-                        "\n\n Best regards, \n Backend Manager");
+                emailService.sendSimpleMessage(application.getContactInfo().getEmail(),"Application submission confirmation",
+                        "<p>\n" +
+                                "    Dear Applicant,\n" +
+                                "  </p>\n" +
+                                "  <p>\n" +
+                                "    Your application has been approved and username is "+application.getPersonalInfo().getFirstname()+application.getPersonalInfo().getLastname()+
+                                ". Further below this email are the details that have been made following the approval of your application, Please continue finishing your appplication create by creating a new password and user with this link.\\n http://localhost:3000/passwordCreation?id=\"" +
+                                +application.getId() +"\n"+
+                                "  </p><br />\n" +
+                                "  <p>Best regards,</p>\n" +
+                                "  <p>Backend Manager</p>");
 
             }
             return new ResponseEntity<>(new SuccessDTO("approved application"), HttpStatus.OK);
@@ -115,11 +131,25 @@ public class ApplicationController {
         try{
             Role role =  applicationService.reject(token,application);
             if(role == Role.BackendUser){
-                emailService.sendSimpleMessage(application.getContactInfo().getEmail(),"Application Rejected","Dear Applicant, Your application has been rejected." +
-                        "\n\n Best regards, \n Backend Manager");
+                emailService.sendSimpleMessage(application.getContactInfo().getEmail(),"Application Rejected",
+                        "<p>\n" +
+                                "    Dear Applicant,\n" +
+                                "  </p>\n" +
+                                "  <p>\n" +
+                                "    Your application has been rejected.\n" +
+                                "  </p><br />\n" +
+                                "  <p>Best regards,</p>\n" +
+                                "  <p>Backend Manager</p>");
             }else{
-                emailService.sendSimpleMessage(application.getContactInfo().getEmail(),"Application Rejected","Dear Applicant, Your application has been rejected." +
-                        "\n\n Best regards, \n Agency Manager");
+                emailService.sendSimpleMessage(application.getContactInfo().getEmail(),"Application Rejected",
+                        "<p>\n" +
+                                "    Dear Applicant,\n" +
+                                "  </p>\n" +
+                                "  <p>\n" +
+                                "    Your application has been rejected.\n" +
+                                "  </p><br />\n" +
+                                "  <p>Best regards,</p>\n" +
+                                "  <p>Agency Manager</p>");
 
             }
             return new ResponseEntity<>(new SuccessDTO("reject application"), HttpStatus.OK);

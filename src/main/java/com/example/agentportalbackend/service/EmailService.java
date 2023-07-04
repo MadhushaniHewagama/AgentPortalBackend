@@ -8,6 +8,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
+import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import java.io.File;
 @Service
@@ -18,15 +19,16 @@ public class EmailService {
     private JavaMailSender emailSender;
 
     public void sendSimpleMessage(
-            String to, String subject, String text) {
+            String to, String subject, String htmlMsg) throws MessagingException {
 
-        SimpleMailMessage message = new SimpleMailMessage();
-        message.setFrom("system@life.in.com");
-        message.setTo(to);
-        message.setSubject(subject);
-        message.setText(text);
-        emailSender.send(message);
+        MimeMessage mimeMessage = emailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, "utf-8");
 
+        helper.setText(htmlMsg, true); // Use this or above line.
+        helper.setTo(to);
+        helper.setSubject(subject);
+        helper.setFrom("system@life.in.com");
+        emailSender.send(mimeMessage);
     }
 
     public void sendMessageWithAttachment(
