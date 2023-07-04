@@ -53,7 +53,7 @@ public class ApplicationService {
             log.info("Role {}",role);
             return applicationRepository.findByStatusIn(Arrays.asList(ApplicationStatus.Approved, ApplicationStatus.Rejected,ApplicationStatus.Initiated));
         }else{
-            return applicationRepository.findByStatusIn(Arrays.asList(ApplicationStatus.Submitted,ApplicationStatus.Approved));
+            return applicationRepository.findByStatusIn(Arrays.asList(ApplicationStatus.Submitted,ApplicationStatus.Approved,ApplicationStatus.Initiated));
         }
 
     }
