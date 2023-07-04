@@ -93,7 +93,7 @@ public class ApplicationController {
         try{
             Role role =  applicationService.approve(token,application);
             if(role == Role.BackendUser){
-                emailService.sendSimpleMessage("AgencyManager@life.in.com","Application form with registartion id"+application.getId(),
+                emailService.sendSimpleMessage("AgencyManager@life.in.com","Application form with registartion id "+application.getId(),
                         "<p>\n" +
                                 "    Hello,\n" +
                                 "  </p>\n" +
