@@ -110,8 +110,9 @@ public class ApplicationController {
                                 "  </p>\n" +
                                 "  <p>\n" +
                                 "    Your application has been approved and username is "+application.getPersonalInfo().getFirstname()+application.getPersonalInfo().getLastname()+
-                                ". Further below this email are the details that have been made following the approval of your application, Please continue finishing your appplication create by creating a new password and user with this link.\\n http://localhost:3000/passwordCreation?id=\"" +
-                                +application.getId() +"\n"+
+                                ". Further below this email are the details that have been made following the approval of your application, Please continue finishing your appplication create by creating a new password and user with this link.\n <a href=http://localhost:3000/passwordCreation?id=" +
+                                +application.getId() +"\">Click Here</a>"
+                        +"\n"+
                                 "  </p><br />\n" +
                                 "  <p>Best regards,</p>\n" +
                                 "  <p>Backend Manager</p>");
